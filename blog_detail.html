@@ -28,7 +28,7 @@
                 <!-- 用户的头像 -->
                 <img src="image/head.jpg" alt="">
                 <!-- 用户名 -->
-                <h3>qingyi</h3>
+                <h3>青翼</h3>
                 <!-- 其它信息 -->
                 <a href="https://blog.csdn.net/m0_61035708?type=blog">CSDN 地址</a>
                 <a href="https://qingyiyi.github.io/">GitHub 地址</a>
@@ -48,23 +48,293 @@
             <!-- 使用这个 div 来放博客内容 -->
             <div class="blog-content">
                 <!-- 博客的标题 -->
-                <h3>我的第一篇博客</h3>
+                <h3>纯小白如何在win11环境下运行MPI程序</h3>
                 <!-- 博客的日期 -->
-                <div class="date">2022-2-16</div>
+                <div class="date">2022-7-13</div>
                 <!-- 博客的内容 -->
                 <div class="detail">
-                    <p>
-                        中国人的性情是喜欢调和折中的，譬如你说，这屋子太暗，须在这里开一个窗，大家一定不允许的。但如果你主张拆掉屋顶他们就来调和，愿意开窗了。
-                    </p>
-                    <p>
-                        而忽而这些都空虚了，但有时故意地填以没奈何的自欺的希望。希望，希望，用这希望的盾，抗拒那空虚中的暗夜的袭来，虽然盾后面也依然是空虚中的暗夜。
-                    </p>
-                    <p>
-                        如果痛苦换来的是结识真理、坚持真理，就应自觉的欣然承受，那时，也只有那时，痛苦穿掘着灵魂的深处，使人受了精神底苦刑而得到创伤，又即从这得伤和养伤和愈合中，得到苦的涤除，而上了苏生的路。
-                    </p>
-                    <p>
-                        当我沉默着的时候，我觉得充实；我将开口，同时感到空虚。过去的生命已经死亡。我对于这死亡有大欢喜，因为我借此知道它曾经存活。死亡的生命已经朽腐。我对于这朽腐有大欢喜，因为我借此知道它还非空虚。
-                    </p>
+                    <p><strong>行文背景</strong>：本文写于22年7月13日(后疫情时代)，win11环境而intel oneAPI 中的HPC toolkit 目前与win11并不完全适配的情况下，在查阅了很多资料(极少量英文资料)要不是年代久远无法保证各部分完全同步更新，要不就是无法完全兼容总是容易出现各种问题，且本站对于类似问题或配置环境中产生问题并没有特别多的讨论，对于完全没有一次运行经验的新手来说过于不友好，故写下此文给新手提供一点帮助，希望大家不再因为环境的配置而头疼很久。</p>
+<p><strong>需求</strong>：</p>
+<ul>
+<li>
+<p>系统：win11（系统非常重要至少我是在尝试很久intel开发的HPC tookit很久后才发现是win11中修改了win10中的一个net动态链接导致问题）</p>
+</li>
+<li>
+<p>基础IDE：vsCode（不完全算IDE不过自由度很高给我们提供了很多可选空间）(有很多下载blog这里不过多阐述)</p>
+</li>
+<li>
+<p>C Compliler：Mingw-w64 (MinGW已经停止更新很久了，与Mingw-w64内置GCC版本差别很大)</p>
+</li>
+</ul>
+<blockquote>
+<p><a href="https://sourceforge.net/projects/mingw-w64/files/">MinGW-W64</a> (安装路径后面会用到)
+<img width=600px src="https://img-blog.csdnimg.cn/f8c290883f91432691454a3d1b6acb5b.png#pic_center" alt="在这里插入图片描述"></p>
+</blockquote>
+<ul>
+<li>其他：<a href="https://www.microsoft.com/en-us/download/details.aspx?id=100593">Micorsoft MPI</a></li>
+</ul>
+<blockquote>
+<p><img width=600px src="https://img-blog.csdnimg.cn/de25fbbb503f4e2e94f386f8959f5a3f.png#pic_center" alt="在这里插入图片描述"></p>
+<p>1、这里两个包都需要下载，并安装，安装位置自选 (路径后面需要用到)</p>
+<p>2、测试。安装后打开cmd，执行 <code>set msmpi</code>，如果能打印出相应路径表示安装成功，如图。</p>
+<p><img width=600px src="https://img-blog.csdnimg.cn/7c8a2063a8cb48f58516e3263840c0de.png#pic_center" alt="在这里插入图片描述"></p>
+</blockquote>
+<p>到这里准备工作就结束了。</p>
+<h2>1、MinGW配置</h2>
+<p>下载好Mingw-w64后我们需要配置环境变量</p>
+<p>找到系统变量的Path这一条,点击编辑</p>
+<blockquote>
+<p><img width=600px src="https://img-blog.csdnimg.cn/de14ed034ea34fb0998b2a0865a17025.png#pic_center" alt="在这里插入图片描述"></p>
+</blockquote>
+<p>将下载的Mingw-w64文件中bin文件夹的路径加到最后，点击确定。</p>
+<p>最后来测试一下配置成功没有。</p>
+<p>打开cmd，输入<code>gcc -v</code>如果出现下图的情况则完成配置。</p>
+<p><img width=600px src="https://img-blog.csdnimg.cn/30c2ea3e09414824831fd8ea1b3369e6.png#pic_center" alt="在这里插入图片描述"></p>
+<hr>
+<h2>2、配置vsCode中的c环境</h2>
+<p>首先下载C/C++插件</p>
+<p><img width=600px src="https://img-blog.csdnimg.cn/393edf3057d143208c6d34d1d955fa32.png#pic_center" alt="在这里插入图片描述"></p>
+<p>打开一个你喜欢的存放程序的文件夹</p>
+<p><img width=600px src="https://img-blog.csdnimg.cn/acf95e7c674c46f58c30d2347f5fcd72.png#pic_center" alt="在这里插入图片描述"></p>
+<p>在这个文件夹下新建一个hello.c的文件，并且新建一个**.vscod**的目录(前面有一个点)，在这个目录下新建三个文件分别命名为c_cpp_properties.json、launch.json、tasks.json 如图</p>
+<p><img width=600px src="https://img-blog.csdnimg.cn/874f89484cb04755a84619246b21b6e9.png#pic_center" alt="在这里插入图片描述"></p>
+<p>首先打开c_cpp_properties.json配置文件夹，写入如下配置信息,注意路径要改成自己的MinGW的路径，后面的路径不变</p>
+<pre><code class="language-json">{
+    &quot;configurations&quot;: [
+        {
+            &quot;name&quot;: &quot;Win32&quot;,
+            &quot;includePath&quot;: [
+                &quot;${workspaceRoot}&quot;,
+                //这里mingw64之前的路径要换成自己安装的路径
+                &quot;D:/IDE/MinGW/mingw64/include/**&quot;,
+                &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++&quot;,
+                &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32&quot;,
+                &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward&quot;,
+                &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include&quot;,
+                &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed&quot;,
+                &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include&quot;
+            ],
+            &quot;defines&quot;: [
+                &quot;_DEBUG&quot;,
+                &quot;UNICODE&quot;,
+                &quot;__GNUC__=6&quot;,
+                &quot;__cdecl=__attribute__((__cdecl__))&quot;
+            ],
+            &quot;intelliSenseMode&quot;: &quot;msvc-x64&quot;,
+            &quot;browse&quot;: {
+                &quot;limitSymbolsToIncludedHeaders&quot;: true,
+                &quot;databaseFilename&quot;: &quot;&quot;,
+                &quot;path&quot;: [
+                    &quot;${workspaceRoot}&quot;,
+                    //此处路径也要更换
+                    &quot;D:/IDE/MinGW/mingw64/include/**&quot;,
+                    &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++&quot;,
+                    &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/x86_64-w64-mingw32&quot;,
+                    &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include/c++/backward&quot;,
+                    &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include&quot;,
+                    &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed&quot;,
+                    &quot;D:/IDE/MinGW/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include&quot;
+                ]
+            }
+        }
+    ],
+    &quot;version&quot;: 4
+}
+</code></pre>
+<p><strong>共有14条语句需要更换Path注意不要漏掉</strong></p>
+<p>之后打开launch.json文件，并输入如下配置信息，有两条语句需要更改路径</p>
+<pre><code>{
+    &quot;version&quot;: &quot;0.2.0&quot;,
+    &quot;configurations&quot;: [
+        {
+            &quot;name&quot;: &quot;(Windows) Launch&quot;,
+            &quot;type&quot;: &quot;cppvsdbg&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;program&quot;: &quot;cmd&quot;,
+            &quot;preLaunchTask&quot;: &quot;echo&quot;,
+            &quot;args&quot;: [
+                &quot;/C&quot;,
+                &quot;${fileDirname}\\${fileBasenameNoExtension}.exe&quot;,
+                &quot;&amp;&quot;,
+                &quot;echo.&quot;,
+                &quot;&amp;&quot;,
+                &quot;pause&quot;
+            ],
+            &quot;stopAtEntry&quot;: false,
+            &quot;cwd&quot;: &quot;${workspaceFolder}&quot;,
+            &quot;environment&quot;: [],
+            &quot;externalConsole&quot;: true
+        },
+        {
+            &quot;name&quot;: &quot;(gdb) Launch&quot;,
+            &quot;type&quot;: &quot;cppdbg&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;program&quot;: &quot;${workspaceFolder}/${fileBasenameNoExtension}.exe&quot;,
+            &quot;args&quot;: [],
+            &quot;stopAtEntry&quot;: false,
+            &quot;cwd&quot;: &quot;${workspaceFolder}&quot;,
+            &quot;environment&quot;: [],
+            &quot;externalConsole&quot;: true,
+            &quot;MIMode&quot;: &quot;gdb&quot;,
+            //注意更换路径
+            &quot;miDebuggerPath&quot;: &quot;D:\\IDE\\MinGW\\mingw64\\bin\\gdb.exe&quot;,
+            &quot;preLaunchTask&quot;: &quot;echo&quot;,
+            &quot;setupCommands&quot;: [
+                {
+                    &quot;description&quot;: &quot;Enable pretty-printing for gdb&quot;,
+                    &quot;text&quot;: &quot;-enable-pretty-printing&quot;,
+                    &quot;ignoreFailures&quot;: true
+                }
+            ]
+        },
+        {
+            &quot;name&quot;: &quot;(gdb) 启动&quot;,
+            &quot;type&quot;: &quot;cppdbg&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;program&quot;: &quot;输入程序名称，例如 ${workspaceFolder}/a.exe&quot;,
+            &quot;args&quot;: [],
+            &quot;stopAtEntry&quot;: false,
+            &quot;cwd&quot;: &quot;${fileDirname}&quot;,
+            &quot;environment&quot;: [],
+            &quot;externalConsole&quot;: false,
+            &quot;MIMode&quot;: &quot;gdb&quot;,
+            &quot;miDebuggerPath&quot;: &quot;/path/to/gdb&quot;,
+            &quot;setupCommands&quot;: [
+                {
+                    &quot;description&quot;: &quot;为 gdb 启用整齐打印&quot;,
+                    &quot;text&quot;: &quot;-enable-pretty-printing&quot;,
+                    &quot;ignoreFailures&quot;: true
+                },
+                {
+                    &quot;description&quot;: &quot;将反汇编风格设置为 Intel&quot;,
+                    &quot;text&quot;: &quot;-gdb-set disassembly-flavor intel&quot;,
+                    &quot;ignoreFailures&quot;: true
+                }
+            ]
+        },
+        {
+            &quot;name&quot;: &quot;(Windows) 启动&quot;,
+            &quot;type&quot;: &quot;cppvsdbg&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;program&quot;: &quot;输入程序名称，例如 ${workspaceFolder}/a.exe&quot;,
+            &quot;args&quot;: [],
+            &quot;stopAtEntry&quot;: false,
+            &quot;cwd&quot;: &quot;${fileDirname}&quot;,
+            &quot;environment&quot;: [],
+            &quot;console&quot;: &quot;externalTerminal&quot;
+        },
+        {
+            &quot;name&quot;: &quot;C/C++: gcc.exe 生成和调试活动文件&quot;,
+            &quot;type&quot;: &quot;cppdbg&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;program&quot;: &quot;${fileDirname}\\${fileBasenameNoExtension}.exe&quot;,
+            &quot;args&quot;: [],
+            &quot;stopAtEntry&quot;: false,
+            &quot;cwd&quot;: &quot;${fileDirname}&quot;,
+            &quot;environment&quot;: [],
+            &quot;externalConsole&quot;: false,
+            &quot;MIMode&quot;: &quot;gdb&quot;,
+            //这里也要更换路径
+            &quot;miDebuggerPath&quot;: &quot;D:\\IDE\\MinGW\\mingw64\\bin\\gdb.exe&quot;,
+            &quot;setupCommands&quot;: [
+                {
+                    &quot;description&quot;: &quot;为 gdb 启用整齐打印&quot;,
+                    &quot;text&quot;: &quot;-enable-pretty-printing&quot;,
+                    &quot;ignoreFailures&quot;: true
+                },
+                {
+                    &quot;description&quot;: &quot;将反汇编风格设置为 Intel&quot;,
+                    &quot;text&quot;: &quot;-gdb-set disassembly-flavor intel&quot;,
+                    &quot;ignoreFailures&quot;: true
+                }
+            ],
+            &quot;preLaunchTask&quot;: &quot;C/C++: gcc.exe 生成活动文件&quot;
+        }
+    ]
+}
+</code></pre>
+<p>最后打开tasks.json文件，同样也有一条语句需要修改路径。</p>
+<pre><code>{
+    &quot;version&quot;: &quot;2.0.0&quot;,
+    &quot;tasks&quot;: [
+        {
+            &quot;label&quot;: &quot;echo&quot;,
+            &quot;type&quot;: &quot;shell&quot;,
+            &quot;command&quot;: &quot;gcc&quot;,
+            &quot;args&quot;: [
+                &quot;-g&quot;,
+                &quot;${file}&quot;,
+                &quot;-o&quot;,
+                &quot;${fileBasenameNoExtension}.exe&quot;,
+                &quot;-fexec-charset=GBK&quot;
+            ]
+        },
+        {
+            &quot;type&quot;: &quot;cppbuild&quot;,
+            &quot;label&quot;: &quot;C/C++: gcc.exe 生成活动文件&quot;,
+            //记得更改路径
+            &quot;command&quot;: &quot;D:\\IDE\\MinGW\\mingw64\\bin\\gcc.exe&quot;,
+            &quot;args&quot;: [
+                &quot;-fdiagnostics-color=always&quot;,
+                &quot;-g&quot;,
+                &quot;${file}&quot;,
+                &quot;-o&quot;,
+                &quot;${fileDirname}\\${fileBasenameNoExtension}.exe&quot;
+            ],
+            &quot;options&quot;: {
+                &quot;cwd&quot;: &quot;${fileDirname}&quot;
+            },
+            &quot;problemMatcher&quot;: [
+                &quot;$gcc&quot;
+            ],
+            &quot;group&quot;: &quot;build&quot;,
+            &quot;detail&quot;: &quot;调试器生成的任务。&quot;
+        }
+    ],
+    &quot;presentation&quot;: {
+        &quot;echo&quot;: true,
+        &quot;reveal&quot;: &quot;always&quot;,
+        &quot;focus&quot;: false,
+        &quot;panel&quot;: &quot;shared&quot;,
+        &quot;showReuseMessage&quot;: true,
+        &quot;clear&quot;: false
+    }
+}
+</code></pre>
+<h2>3、配置MPI环境</h2>
+<p>​        其实每次运行MPI程序的时候都需要在cmd中运行编译出来的exe程序，但是对于新手，出于便捷考虑这里使用vsCode中的Code Runner插件代替每次编译完后再利用cmd运行的繁琐过程。</p>
+<p>首先我们需要下载Code Runner 插件</p>
+<ul>
+<li>在扩展中直接搜<code>Code Runner</code>安装</li>
+<li>打开 <strong>扩展设置</strong>，找到<code>Code-runner；Exexutor Map</code></li>
+</ul>
+<p><img width=600px src="https://img-blog.csdnimg.cn/8f7dfed73b3b4dd2a47396d6ebe62f2c.png#pic_center" alt="在这里插入图片描述"></p>
+<ul>
+<li>点击Code runner Executor Map左边的齿轮，点击<code>将设置复制为JSON文本</code>，然后点击<code>在settings.json中编辑</code></li>
+<li>找到如下内容</li>
+</ul>
+<pre><code class="language-json">&quot;c&quot;: &quot;cd $dir &amp;&amp; gcc $fileName -o $fileNameWithoutExt &amp;&amp; $dir$fileNameWithoutExt&quot;,
+&quot;cpp&quot;: &quot;cd $dir &amp;&amp; g++ $fileName -o $fileNameWithoutExt &amp;&amp; $dir$fileNameWithoutExt&quot;,
+</code></pre>
+<p>替换为</p>
+<pre><code class="language-json">&quot;c&quot;: &quot;cd $dir &amp;&amp; gcc $fileName -o $fileNameWithoutExt -fopenmp -l msmpi -L \&quot;D:\\IDE\\MPI\\MPI SDK\\Lib\\x64\&quot; -I \&quot;D:\\IDE\\MPI\\MPI SDK\\Include\&quot; &amp;&amp; mpiexec -n 4 $fileNameWithoutExt&quot;,
+&quot;cpp&quot;: &quot;cd $dir &amp;&amp; g++ $fileName -o $fileNameWithoutExt -fopenmp -l msmpi -L \&quot;D:\\IDE\\MPI\\MPI SDK\\Lib\\x64\&quot; -I \&quot;D:\\IDE\\MPI\\MPI SDK\\Include\&quot; &amp;&amp; mpiexec -n 4 $fileNameWithoutExt&quot;,
+</code></pre>
+<p>注意更改路径</p>
+<h2>4、一点强迫症</h2>
+<p>​        此时其实一切都配置好了，但是在<code>#include &quot;mpi.h&quot;</code>下面一直有错误提示，虽然不影响运行，但是很别扭，这是因为在我们的c配置中没有添加mpi的include文件，只要在c_cpp_properties.json 中添加上就行了(记得添加在末尾时要加上逗号分隔符)</p>
+<p><img width=600px src="https://img-blog.csdnimg.cn/c191d7cd666c49eb8b331d81547082ba.png#pic_center" alt="在这里插入图片描述"></p>
+<h2>5、最终测试</h2>
+<p>最后写一个简单的Hello World 测试一下</p>
+<p><img width=600px src="https://img-blog.csdnimg.cn/8dd7a69158c64d508cca03a0d5cceed2.png#pic_center" alt="在这里插入图片描述"></p>
+<p>这样就配置完成了。</p>
+<p>那么这里我们就会发现，只有四条进程在运行，如何改变进程个数呢？</p>
+<p>这里就要提到之前说的Code Runner实际上只是帮助你在cmd中利用mpiexec运行编译好的exe文件，所以我们重新回到Code Runner时候的settings.json文件中，找到更改的语句，只要修改这里的数字4就可以改变最后参与运行的进程数。</p>
+<p><img width=600px src="https://img-blog.csdnimg.cn/24028fbb0fab4f25b81a3ecfb0a0ad87.png#pic_center" alt="在这里插入图片描述"></p>
+<h2>6、写在最后</h2>
+<p>当然如果intel更新了的话，更推荐使用intel 的 oneAPI toolkit 不仅十分智能化一键自动配置环境，还拥有众多包功能强大能应用在很多地方，其代表了intel大统一的成果。</p>
+<p>Happy coding !!!</p>
+
                 </div>
         </div>
 </body>

@@ -18,7 +18,7 @@
 .blog .date {
     text-align: center;
     padding-bottom: 10px;
-    color: grey;
+    color: rgb(51, 63, 237);
 }
 
 /* 博客的描述 */
@@ -30,10 +30,10 @@
 .blog .detail {
     display: block;
     width: 120px;
-    color: grey;
+    color: rgb(174, 197, 240);
     height: 30px;
     /* 设置边框 */
-    border: 2px solid grey;
+    border: 2px solid rgb(174, 197, 240);
     /* 文字水平居中 */
     text-align: center;
     /* 文字垂直居中 */
