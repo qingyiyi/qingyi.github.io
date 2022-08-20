@@ -15,7 +15,7 @@
         <span class="title">我的博客系统</span>
          <!-- 使用 span 把左右两侧的元素给撑开 -->
          <span class="spacer"></span>
-        <a href="blog_list.html">主页</a>
+        <a href="index.html">主页</a>
         <a href="blog_edit.html">写博客</a>
         <a href="blog_login.html">注销</a>
     </div>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="counter">
                     <span>2</span>
-                    <span>1</span>
+                    <span>0</span>
                 </div>
             </div>
         </div>
@@ -67,37 +67,37 @@
 </li>
 </ul>
 <blockquote>
-<p><a href="https://sourceforge.net/projects/mingw-w64/files/">MinGW-W64</a> (安装路径后面会用到)
-<img width=600px src="https://img-blog.csdnimg.cn/f8c290883f91432691454a3d1b6acb5b.png#pic_center" alt="在这里插入图片描述"></p>
+<a href="https://sourceforge.net/projects/mingw-w64/files/">MinGW-W64</a> (安装路径后面会用到)
+<p><img width=90% src="https://img-blog.csdnimg.cn/f8c290883f91432691454a3d1b6acb5b.png#pic_center" alt="在这里插入图片描述"></p>
 </blockquote>
 <ul>
 <li>其他：<a href="https://www.microsoft.com/en-us/download/details.aspx?id=100593">Micorsoft MPI</a></li>
 </ul>
 <blockquote>
-<p><img width=600px src="https://img-blog.csdnimg.cn/de25fbbb503f4e2e94f386f8959f5a3f.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img width=90% src="https://img-blog.csdnimg.cn/de25fbbb503f4e2e94f386f8959f5a3f.png#pic_center" alt="在这里插入图片描述"></p>
 <p>1、这里两个包都需要下载，并安装，安装位置自选 (路径后面需要用到)</p>
 <p>2、测试。安装后打开cmd，执行 <code>set msmpi</code>，如果能打印出相应路径表示安装成功，如图。</p>
-<p><img width=600px src="https://img-blog.csdnimg.cn/7c8a2063a8cb48f58516e3263840c0de.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img width=90% src="https://img-blog.csdnimg.cn/7c8a2063a8cb48f58516e3263840c0de.png#pic_center" alt="在这里插入图片描述"></p>
 </blockquote>
 <p>到这里准备工作就结束了。</p>
 <h2>1、MinGW配置</h2>
 <p>下载好Mingw-w64后我们需要配置环境变量</p>
 <p>找到系统变量的Path这一条,点击编辑</p>
 <blockquote>
-<p><img width=600px src="https://img-blog.csdnimg.cn/de14ed034ea34fb0998b2a0865a17025.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img width=90% src="https://img-blog.csdnimg.cn/de14ed034ea34fb0998b2a0865a17025.png#pic_center" alt="在这里插入图片描述"></p>
 </blockquote>
 <p>将下载的Mingw-w64文件中bin文件夹的路径加到最后，点击确定。</p>
 <p>最后来测试一下配置成功没有。</p>
 <p>打开cmd，输入<code>gcc -v</code>如果出现下图的情况则完成配置。</p>
-<p><img width=600px src="https://img-blog.csdnimg.cn/30c2ea3e09414824831fd8ea1b3369e6.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img width=90% src="https://img-blog.csdnimg.cn/30c2ea3e09414824831fd8ea1b3369e6.png#pic_center" alt="在这里插入图片描述"></p>
 <hr>
 <h2>2、配置vsCode中的c环境</h2>
 <p>首先下载C/C++插件</p>
-<p><img width=600px src="https://img-blog.csdnimg.cn/393edf3057d143208c6d34d1d955fa32.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img width=90% src="https://img-blog.csdnimg.cn/393edf3057d143208c6d34d1d955fa32.png#pic_center" alt="在这里插入图片描述"></p>
 <p>打开一个你喜欢的存放程序的文件夹</p>
-<p><img width=600px src="https://img-blog.csdnimg.cn/acf95e7c674c46f58c30d2347f5fcd72.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img width=90% src="https://img-blog.csdnimg.cn/acf95e7c674c46f58c30d2347f5fcd72.png#pic_center" alt="在这里插入图片描述"></p>
 <p>在这个文件夹下新建一个hello.c的文件，并且新建一个<strong>.vscod</strong>的目录(前面有一个点)，在这个目录下新建三个文件分别命名为c_cpp_properties.json、launch.json、tasks.json 如图</p>
-<p><img width=600px src="https://img-blog.csdnimg.cn/874f89484cb04755a84619246b21b6e9.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img width=90% src="https://img-blog.csdnimg.cn/874f89484cb04755a84619246b21b6e9.png#pic_center" alt="在这里插入图片描述"></p>
 <p>首先打开c_cpp_properties.json配置文件夹，写入如下配置信息,注意路径要改成自己的MinGW的路径，后面的路径不变</p>
 <pre><code class="language-json">{
     &quot;configurations&quot;: [
@@ -308,7 +308,7 @@
 <li>在扩展中直接搜<code>Code Runner</code>安装</li>
 <li>打开 <strong>扩展设置</strong>，找到<code>Code-runner；Exexutor Map</code></li>
 </ul>
-<p><img width=600px src="https://img-blog.csdnimg.cn/8f7dfed73b3b4dd2a47396d6ebe62f2c.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img width=90% src="https://img-blog.csdnimg.cn/8f7dfed73b3b4dd2a47396d6ebe62f2c.png#pic_center" alt="在这里插入图片描述"></p>
 <ul>
 <li>点击Code runner Executor Map左边的齿轮，点击<code>将设置复制为JSON文本</code>，然后点击<code>在settings.json中编辑</code></li>
 <li>找到如下内容</li>
@@ -323,14 +323,14 @@
 <p>注意更改路径</p>
 <h2>4、一点强迫症</h2>
 <p>​        此时其实一切都配置好了，但是在<code>#include &quot;mpi.h&quot;</code>下面一直有错误提示，虽然不影响运行，但是很别扭，这是因为在我们的c配置中没有添加mpi的include文件，只要在c_cpp_properties.json 中添加上就行了(记得添加在末尾时要加上逗号分隔符)</p>
-<p><img width=600px src="https://img-blog.csdnimg.cn/c191d7cd666c49eb8b331d81547082ba.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img width=90% src="https://img-blog.csdnimg.cn/c191d7cd666c49eb8b331d81547082ba.png#pic_center" alt="在这里插入图片描述"></p>
 <h2>5、最终测试</h2>
 <p>最后写一个简单的Hello World 测试一下</p>
-<p><img width=600px src="https://img-blog.csdnimg.cn/8dd7a69158c64d508cca03a0d5cceed2.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img width=90% src="https://img-blog.csdnimg.cn/8dd7a69158c64d508cca03a0d5cceed2.png#pic_center" alt="在这里插入图片描述"></p>
 <p>这样就配置完成了。</p>
 <p>那么这里我们就会发现，只有四条进程在运行，如何改变进程个数呢？</p>
 <p>这里就要提到之前说的Code Runner实际上只是帮助你在cmd中利用mpiexec运行编译好的exe文件，所以我们重新回到Code Runner时候的settings.json文件中，找到更改的语句，只要修改这里的数字4就可以改变最后参与运行的进程数。</p>
-<p><img width=600px src="https://img-blog.csdnimg.cn/24028fbb0fab4f25b81a3ecfb0a0ad87.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img width=90% src="https://img-blog.csdnimg.cn/24028fbb0fab4f25b81a3ecfb0a0ad87.png#pic_center" alt="在这里插入图片描述"></p>
 <h2>6、写在最后</h2>
 <p>当然如果intel更新了的话，更推荐使用intel 的 oneAPI toolkit 不仅十分智能化一键自动配置环境，还拥有众多包功能强大能应用在很多地方，其代表了intel大统一的成果。</p>
 <p>Happy coding !!!</p>
