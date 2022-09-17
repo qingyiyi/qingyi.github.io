@@ -559,7 +559,7 @@ s       //执行一条c语句
 </ul>
 <pre><code>quit    //退出GDB调试过程
 </code></pre>
-<p><img width=80% src="./image/blog_3%5Cimage-20220915212431304.png" alt="image-20220915212431304"></p>
+<p><img width=80% src="./image/blog_3/image-20220915212431304.png" alt="image-20220915212431304"></p>
 <h2>拆弹实验实操</h2>
 <h1>拆弹实验实验报告</h1>
 <h2>炸弹0</h2>
@@ -568,39 +568,39 @@ s       //执行一条c语句
 <p>这一部分是关于长浮点数转换成两部分整型数的题目</p>
 <p>首先调用了sscanf函数得知需要输入参数，上面push了两个参数</p>
 <p>接着输出存储输出范围的地址得到我们需要输入两个整数</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220916105919212.png" alt="image-20220916105919212"></p>
+<p><img width=80% src="./image/blog_3/image-20220916105919212.png" alt="image-20220916105919212"></p>
 <p>接下来分析代码</p>
 <p>发现我们需要的长浮点数已经给出，不过后来转化为单精度浮点数存储，所以根据运算得到之后的值，并且拆分为两个整数得到最终结果</p>
 <p>注释</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917085826943.png" alt="image-20220917085826943"></p>
+<p><img width=80% src="./image/blog_3/image-20220917085826943.png" alt="image-20220917085826943"></p>
 <h2>炸弹2</h2>
 <p>分析代码发现有一个循环结构，需要输入的第一个数在最开始已经给出了后来需要输入的数根据公式算出(其中i为循环次数)
 f[n]=f[n-1]-2*i+1
 轻松得到要求输入的七个数字</p>
 <p>注释</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917085856051.png" alt="image-20220917085856051"></p>
+<p><img width=80% src="./image/blog_3/image-20220917085856051.png" alt="image-20220917085856051"></p>
 <h2>炸弹3</h2>
 <p>首先输出查看要求输入的数据类型和格式</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220916105425944.png" alt="image-20220916105425944"></p>
+<p><img width=80% src="./image/blog_3/image-20220916105425944.png" alt="image-20220916105425944"></p>
 <p>接着分析函数，我们发现了一个switch的选择结构</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220916105547034.png" alt="image-20220916105547034"></p>
+<p><img width=80% src="./image/blog_3/image-20220916105547034.png" alt="image-20220916105547034"></p>
 <p>我们调试输出0x804b204的地址发现这个switch是根据我们输入的第一个参数-98后的值来更改后来比较时参数的变化，所以通过计算得到要求出入的两个数分别是多少</p>
 <p>注释</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917085931233.png" alt="image-20220917085931233"></p>
+<p><img width=80% src="./image/blog_3/image-20220917085931233.png" alt="image-20220917085931233"></p>
 <h2>炸弹4</h2>
-<p><img width=80% src="./image/blog_3%5Cimage-20220916110612708.png" alt="image-20220916110612708"></p>
+<p><img width=80% src="./image/blog_3/image-20220916110612708.png" alt="image-20220916110612708"></p>
 <p>输入同样要求两个整数</p>
 <p><img width=80% src="./image/blog_3\image-20220916203908680.png" alt="image-20220916203908680" alt="" /></p>
 <p>猜测func4的递归代码，要求输入两个数，最后返回值需要是177</p>
 <p>并且猜测v2&gt;0,v3&lt;=39</p>
 <p>通过调试发现有一个地址内容是是0x63本以为是常数，后来调试发现应该是一个数组，根据输入的数选取数组的某一位</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917083710064.png" alt="image-20220917083710064"></p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917084932427.png" alt="image-20220917084932427"></p>
+<p><img width=80% src="./image/blog_3/image-20220917083710064.png" alt="image-20220917083710064"></p>
+<p><img width=80% src="./image/blog_3/image-20220917084932427.png" alt="image-20220917084932427"></p>
 <p>调试发现给定常数应该是一个数组，找到数组第6位正好是177</p>
 <p>由结果反推代码推测应该是6 6，测试结果正确</p>
 <p>注释</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917090011904.png" alt="image-20220917090011904"></p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917090042079.png" alt="image-20220917090042079"></p>
+<p><img width=80% src="./image/blog_3/image-20220917090011904.png" alt="image-20220917090011904"></p>
+<p><img width=80% src="./image/blog_3/image-20220917090042079.png" alt="image-20220917090042079"></p>
 <h2>炸弹5</h2>
 <p>首先根据函数名得到我们需要传入一个字符串，且字符串长度为5</p>
 <p>接着发现了一个循环结构，循环结构用到了字符串，以及一个未知数组(推测)，最终需要得到15这个值</p>
@@ -609,7 +609,7 @@ f[n]=f[n-1]-2*i+1
 <p>并且有一个与操作，推测可能每个字符转化后做与操作作为索引最终数组中的数相加得到结果15</p>
 <p>与操作结果应该就是字母表的相对顺序</p>
 <p>由于前面数字太大，继续查找数组，发现一个2，所以推测可能是iiieg，这样 2+2+2+4+5=15 结果正确！</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917090100179.png" alt="image-20220917090100179"></p>
+<p><img width=80% src="./image/blog_3/image-20220917090100179.png" alt="image-20220917090100179"></p>
 <h2>炸弹6</h2>
 <p>这里首先根据函数名知晓我们需要传入n个数据，之后我们看到第一层循环一共循环了七次</p>
 <p>猜测需要传入七个数，并且每个数必须位于1和7之间，之后发现第一层循环中嵌套一层循环，通过代码可知数组中不能有重复的数字</p>
@@ -622,19 +622,19 @@ f[n]=f[n-1]-2*i+1
 <p><img width=80% src="./image/blog_3%5Cimage-20220917090206402.png" alt="image-20220917090206402"></p>
 <h2>隐藏关</h2>
 <p>我们查看phase_defused代码，发现其中涉及到字符串</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917090735176.png" alt="image-20220917090735176"></p>
+<p><img width=80% src="./image/blog_3/image-20220917090735176.png" alt="image-20220917090735176"></p>
 <p>由于函数名叫strings_not_equal猜测需要额外输入一个字符串，调试得到字符串为</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917090900586.png" alt="image-20220917090900586"></p>
+<p><img width=80% src="./image/blog_3/image-20220917090900586.png" alt="image-20220917090900586"></p>
 <p>XtJXGmZ</p>
 <p>经尝试该字符串加载第四关后面即可打开隐藏关</p>
 <p>查看secret_phase代码得知输入值要在1~1001之中，并且和36传入fun7返回值是1才能不爆炸</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917092029410.png" alt="image-20220917092029410"></p>
+<p><img width=80% src="./image/blog_3/image-20220917092029410.png" alt="image-20220917092029410"></p>
 <p>fun7代码推测源码为</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917092655607.png" alt="image-20220917092655607"></p>
+<p><img width=80% src="./image/blog_3/image-20220917092655607.png" alt="image-20220917092655607"></p>
 <p>调试查看传入数组的全部数据查看发现这是一个链表得到如下数据，数以二叉树的结构进行存储的</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917094725780.png" alt="image-20220917094725780"></p>
+<p><img width=80% src="./image/blog_3/image-20220917094725780.png" alt="image-20220917094725780"></p>
 <p>由于实在不能想出来递归结果，所以自己写程序暴力解题，得到结果是40，经验证正确</p>
-<p><img width=80% src="./image/blog_3%5Cimage-20220917101900172.png" alt="image-20220917101900172"></p>
+<p><img width=80% src="./image/blog_3/image-20220917101900172.png" alt="image-20220917101900172"></p>
 <h2>感受</h2>
 <p>这次拆弹作业真的很折磨，还好最后有惊无险的做完了，通过这次作业能理解汇编的代码了，更深入的了解数字的变化选择结构，循环结构，递归，链表，二叉树在计算机中实际是怎么存储的，能将我仅有的一点硬件方面的知识和程序结合起来，也同时了解了栈到底有什么样的作用，为什么要用栈。</p>
 <p>同时，还能学习如何用gdb进行调试，断点在linux中的使用而不是visual studio中的简单打一个点而已，以及复杂的程序实际上就是很多简单的寄存器进行抽象，并且数据有对齐原则，又如何排列参数让参数占最小的空间。</p>
